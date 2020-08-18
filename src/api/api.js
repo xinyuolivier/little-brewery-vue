@@ -7,6 +7,7 @@ const TOKEN = '74taDYu8veBqPLkuwSFQIoo6iYiT7LdzJ3QPxgK0b6nHMmAPSkDlQaUgnoolq00sI
 
 
 export const axiosGet = (path) => {
+  console.log(API_URL + path);
   return axios.get(API_URL + path)
   .then(response => {
     return response.data;

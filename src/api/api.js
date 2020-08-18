@@ -1,7 +1,7 @@
 import { fetchReq } from "./fetch"; 
 import axios from 'axios';
 
-const API_URL = "http://localhost:8000/api";
+const API_URL = "https://little-brewery-api.herokuapp.com/api"; //"http://localhost:8000/api";
 const TOKEN = '74taDYu8veBqPLkuwSFQIoo6iYiT7LdzJ3QPxgK0b6nHMmAPSkDlQaUgnoolq00sIlFjhQ3224SDhnFhTqnfAiq0w1ae5qqioeFq';
 
 

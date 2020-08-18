@@ -26,6 +26,8 @@ export const axiosGetPrivate = (path, tokenUser) => {
 };
 
 export const axiosPost = (path, body) => {
+  console.log(API_URL + path);
+  console.log(body);
   return axios.post(API_URL + path, body)
   .then(response => {
     console.log(response);

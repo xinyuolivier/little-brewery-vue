@@ -1,118 +1,118 @@
-import { fetchReq } from "./fetch"; 
-import axios from 'axios';
+import { fetchReq } from "./fetch";
+import axios from "axios";
 
 const API_URL = "https://little-brewery-api.herokuapp.com/api"; //"http://localhost:8000/api";
-const TOKEN = '74taDYu8veBqPLkuwSFQIoo6iYiT7LdzJ3QPxgK0b6nHMmAPSkDlQaUgnoolq00sIlFjhQ3224SDhnFhTqnfAiq0w1ae5qqioeFq';
+const TOKEN =
+  "74taDYu8veBqPLkuwSFQIoo6iYiT7LdzJ3QPxgK0b6nHMmAPSkDlQaUgnoolq00sIlFjhQ3224SDhnFhTqnfAiq0w1ae5qqioeFq";
 
-
-
-export const axiosGet = (path) => {
+export const axiosGet = path => {
   console.log(API_URL + path);
-  return axios.get(API_URL + path)
-  .then(response => {
+  return axios.get(API_URL + path).then(response => {
     return response.data;
-  })
+  });
 };
 
-
 export const axiosGetPrivate = (path, tokenUser) => {
-
-  axios.defaults.headers.common['Content-type'] = 'application/json';
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenUser;
-  return axios.get(API_URL + path)
-  .then(response => {
+  axios.defaults.headers.common["Content-type"] = "application/json";
+  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenUser;
+  return axios.get(API_URL + path).then(response => {
     return response.data;
-  })
+  });
 };
 
 export const axiosPost = (path, body) => {
   console.log(API_URL + path);
   console.log(body);
-  return axios.post(API_URL + path, body)
-  .then(response => {
+  return axios.post(API_URL + path, body).then(response => {
     console.log(response);
     return response.data;
-  })
-}
+  });
+};
 
 export const axiosPostPrivate = (path, body, tokenUser) => {
-  axios.defaults.headers.common['Content-type'] = 'application/json';
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenUser;
-  return axios.post(API_URL + path, body)
-  .then(response => {
-    console.log(response);
-    return response.data;
-  }).catch(error => {
-    console.error(error);
-    return (error);
-  })
-}
+  axios.defaults.headers.common["Content-type"] = "application/json";
+  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenUser;
+  return axios
+    .post(API_URL + path, body)
+    .then(response => {
+      console.log(response);
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+      return error;
+    });
+};
 
 export const axiosPostFormPrivate = (path, body, tokenUser) => {
-  axios.defaults.headers.common['Content-type'] = 'multipart/form-data';
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenUser;
-  return axios.post(API_URL + path, body)
-  .then(response => {
-    console.log(response);
-    return response.data;
-  }).catch(error => {
-    console.error(error);
-    return (error);
-  })
-}
+  axios.defaults.headers.common["Content-type"] = "multipart/form-data";
+  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenUser;
+  return axios
+    .post(API_URL + path, body)
+    .then(response => {
+      console.log(response);
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+      return error;
+    });
+};
 
 export const axiosPatch = (path, tokenUser) => {
-
-  axios.defaults.headers.common['Content-type'] = 'application/json';
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenUser;
-  return axios.patch(API_URL + path)
-  .then(response => {
+  axios.defaults.headers.common["Content-type"] = "application/json";
+  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenUser;
+  return axios.patch(API_URL + path).then(response => {
     return response;
-  })
+  });
 };
 
 export const axiosPut = (path, body, tokenUser) => {
-  axios.defaults.headers.common['Content-type'] = 'application/json';
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + tokenUser;
-  return axios.put(API_URL + path, body)
-  .then(response => {
-    console.log(response);
-    return response.data;
-  }).catch(error => {
-    console.error(error);
-    return (error);
-  })
-}
+  axios.defaults.headers.common["Content-type"] = "application/json";
+  axios.defaults.headers.common["Authorization"] = "Bearer " + tokenUser;
+  return axios
+    .put(API_URL + path, body)
+    .then(response => {
+      console.log(response);
+      return response.data;
+    })
+    .catch(error => {
+      console.error(error);
+      return error;
+    });
+};
 
-
-export const getBeers = () => fetchReq(API_URL + '/beers',{
-    method: 'GET',
+export const getBeers = () =>
+  fetchReq(API_URL + "/beers", {
+    method: "GET",
     mode: "cors",
     cache: "default",
-    Authorization: 'Bearer '+ TOKEN
-});
+    Authorization: "Bearer " + TOKEN
+  });
 
-export const getBeerById = (id) => fetchReq(API_URL + '/beers/' + id,{
-  method: 'GET',
-  mode: "cors",
-  cache: "default",
-  Authorization: 'Bearer '+ TOKEN
+export const getBeerById = id =>
+  fetchReq(API_URL + "/beers/" + id, {
+    method: "GET",
+    mode: "cors",
+    cache: "default",
+    Authorization: "Bearer " + TOKEN
+  });
 
-});
+export const getUsers = () =>
+  fetchReq(API_URL + "/users", {
+    method: "GET",
+    mode: "cors",
+    cache: "default",
+    Authorization: "Bearer " + TOKEN
+  });
 
-export const getUsers = () => fetchReq(API_URL + '/users',{
-  method: 'GET',
-  mode: "cors",
-  cache: "default",
-  Authorization: 'Bearer '+ TOKEN
-});
-
-export const getOrders = () => fetchReq(API_URL + '/orders',{
-  method: 'GET',
-  mode: "cors",
-  cache: "default",
-  Authorization: 'Bearer '+ TOKEN
-});
+export const getOrders = () =>
+  fetchReq(API_URL + "/orders", {
+    method: "GET",
+    mode: "cors",
+    cache: "default",
+    Authorization: "Bearer " + TOKEN
+  });
 
 /*
 export const getSpecificNotes = (id) => fetchReq(API_URL + '/' + id,{

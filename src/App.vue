@@ -3,7 +3,7 @@
     <Header />
     <Navbar />
     <main class=" bg-light">
-        <router-view @loggedIn="change"></router-view>
+      <router-view @loggedIn="change"></router-view>
     </main>
   </div>
 </template>
@@ -13,36 +13,35 @@ import Header from "./components/Header.vue";
 import Navbar from "./components/Navbar.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-      Header,
-      Navbar
+    Header,
+    Navbar
   },
-  data(){
-      return{
-          
-          isLoggedIn: localStorage.getItem('brewery.jwt') != null,
-      }
+  data() {
+    return {
+      isLoggedIn: localStorage.getItem("brewery.jwt") != null
+    };
   },
   mounted() {
-      console.log('mounted');
-      this.setDefaults();
+    console.log("mounted");
+    this.setDefaults();
   },
   methods: {
-      setDefaults() {
-          if(this.isLoggedIn){
-              // let user = JSON.parse(localStorage.getItem("brewery.user"));
-              //console.log(user);
-              //this.name = user.firstname;
-              //this.user_type = user.role;
-          }
-      },
-      change(){
-          this.isLoggedIn = localStorage.getItem('brewery.jwt') != null;
-          this.setDefaults();
-      },
+    setDefaults() {
+      if (this.isLoggedIn) {
+        // let user = JSON.parse(localStorage.getItem("brewery.user"));
+        //console.log(user);
+        //this.name = user.firstname;
+        //this.user_type = user.role;
+      }
+    },
+    change() {
+      this.isLoggedIn = localStorage.getItem("brewery.jwt") != null;
+      this.setDefaults();
+    }
   }
-}
+};
 /*
 export default {
   name: 'App',
@@ -85,4 +84,3 @@ export default {
 }
 */
 </script>
-

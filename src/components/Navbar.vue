@@ -24,12 +24,20 @@
               AdminBoard</router-link
             >
             <router-link
+              :to="{ name: 'checkout' }"
+              class="navbar-brand routes"
+              v-if="user_type != 'admin'"
+            >
+              Cart</router-link
+            >
+            <router-link
               :to="{ name: 'admin' }"
               class="navbar-brand routes"
               v-if="user_type == 'admin'"
             >
               Your Account</router-link
             >
+            
           </span>
         </ul>
       </div>

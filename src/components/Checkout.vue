@@ -4,27 +4,41 @@
       <div class="col-md-8 offset-md-2">
         <div v-for="(order, id) in quantity" :key="id">
           <div v-if="order" class="order-box">
-            <img :src="products[id].image" :alt="products[id].name" />
-            <h2 class="title" v-html="products[id].name"></h2>
-            <p class="small-text text-muted float-left">
-              € {{ products[id].price }}
-            </p>
-            <p class="small-text text-muted float-right">
-              Available Units: {{ products[id].units }}
-            </p>
+            <div class="row">
+                <img :src="products[id].image" @error="products[id].image = '/beers/default.png'" :alt="products[id].name" class="img-fluid col-md-3"/>
+                <h2 class="title col-md-6" v-html="products[id].name"></h2>
+                <p class="small-text text-muted col-md-3 text-right">
+                  unit price: € {{ products[id].price }}
+                </p>
+            </div>
+            
             <br />
             <hr />
-            <label class="row"
-              ><span class="col-md-2 float-left">Quantity: </span
-              ><input
-                type="number"
-                name="units"
-                min="1"
-                :max="products[id].units"
-                class="col-md-2 float-left"
-                v-model="quantity[id]"
-                @change="checkUnits"
-            /></label>
+            <div class="row">
+              <p class="small-text text-muted col-md-3">
+                Available Units: {{ products[id].quantity }}
+              </p>
+
+              <div class="row col-md-6"
+                ><span class="col-md-4">Quantity: </span
+                ><input
+                  type="number"
+                  name="units"
+                  min="0"
+                  :max="products[id].quantity"
+                  class="col-md-8 float-left"
+                  v-model="quantity[id]"
+                  @change="checkUnits"
+              /></div>
+
+              <p class="small-text text-right col-md-3">
+                Price: € {{ itemPice(id) }}
+              </p>
+
+            </div>
+            
+            
+            
           </div>
         </div>
         <br />
@@ -84,7 +98,8 @@ export default {
       isLoggedIn: null,
       products: [],
       cart: [],
-      orders: []
+      orders: [],
+      price:[]
     };
   },
   mounted() {
@@ -123,7 +138,10 @@ export default {
         params: { nextUrl: this.$route.fullPath }
       });
     },
-
+    itemPice(id){
+      this.price[id] = (this.quantity[id] * this.products[id].price*1).toFixed(2);
+      return this.price[id];
+    },
     register() {
       this.$router.push({
         name: "register",
@@ -133,21 +151,37 @@ export default {
 
     placeOrder(e) {
       e.preventDefault();
+
+      console.log(e);
+      let billRef = uuid.v4();
+      let orders = [];
+      var id =0;
+      for (id = 0; id < this.quantity.length; id++) {
+        if (this.quantity[id] !== undefined &&
+          this.quantity[id] != 0)
+
+          orders.push({
+              bill: billRef,
+              beer_id: this.products[id].id,
+              user_id: this.user.id,
+              brewery_id: this.products[id].brewery_id,
+              quantity: this.quantity[id],
+              price: this.price[id],
+              delivered: false
+            });
+
+      }
       let body = {
-        bill: uuid.v4(),
-        beer_id: this.product.id,
-        user_id: this.user.id,
-        brewery_id: this.product.brewery_id,
-        quantity: this.quantity,
-        unitprice: this.product.price,
-        delivered: false
+        orders: orders
       };
+      console.log(body);
       //console.log(body);
 
       axiosPostPrivate("/orders", body, this.token).then(response => {
         console.log(response);
         this.$router.push("/confirmation");
-      });
+      })
+      .catch(e => console.log(e));
     },
     checkUnits() {
       if (this.quantity > this.product.units) {
@@ -165,6 +199,11 @@ export default {
 .order-box {
   border: 1px solid #cccccc;
   padding: 10px 15px;
+  height: 300px;
+}
+
+.order-box img{
+  height: 100%;
 }
 .title {
   font-size: 36px;

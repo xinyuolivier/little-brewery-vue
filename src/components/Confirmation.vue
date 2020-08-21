@@ -16,7 +16,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+mounted() {
+    let localStore = [];
+    localStorage.setItem("brewery.cart", JSON.stringify(localStore));
+}
+
+
+};
 </script>
 
 <style scoped>
